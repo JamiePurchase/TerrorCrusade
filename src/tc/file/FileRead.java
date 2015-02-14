@@ -7,41 +7,39 @@ import java.io.BufferedReader;
 
 public class FileRead
 {
-	public String filePath;
-	public FileReader fileRead;
-	public BufferedReader fileReader;
-	public int lineCount;
+	private String filePath;
+	private FileReader fileRead;
+	private BufferedReader fileReader;
+	private int lineCount;
 	
-	public FileRead(String path)
+	public FileRead(String file)
 	{
-		filePath = path;
-		try{fileRead = new FileReader(path);}
-		catch (FileNotFoundException e){e.printStackTrace();}
-		fileReader = new BufferedReader(fileRead);
+		filePath = "C:/Eclipse/Workspace/TerrorCrusade/data/" + file + ".txt";
 		try{lineCount = getLineCount();}
 		catch (IOException e){e.printStackTrace();}
 	}
 	
 	int getLineCount() throws IOException
 	{
+		try{fileRead = new FileReader(filePath);}
+		catch (FileNotFoundException e){e.printStackTrace();}
+		fileReader = new BufferedReader(fileRead);
 		String line;
 		int count = 0;
-		while((line = fileReader.readLine()) != null)
-		{
-			count+=1;
-		}
+		while((line = fileReader.readLine()) != null){count+=1;}
 		fileReader.close();
 		return count;
 	}
 	
 	public String[] read() throws IOException
 	{
+		try{fileRead = new FileReader(filePath);}
+		catch (FileNotFoundException e){e.printStackTrace();}
+		fileReader = new BufferedReader(fileRead);
 		String[] textData = new String[lineCount];
-		int i;
-		for(i=0;i<lineCount;i+=1)
+		for(int x=0;x<lineCount;x+=1)
 		{
-			if(fileReader.readLine()=="# END"){i=lineCount+1;}
-			textData[i] = fileReader.readLine();
+			textData[x] = fileReader.readLine();
 		}
 		fileReader.close();
 		return textData;

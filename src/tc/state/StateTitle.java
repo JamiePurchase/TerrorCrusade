@@ -1,17 +1,41 @@
 package tc.state;
 import tc.Game;
+import tc.file.FileRead;
 import tc.graphics.Drawing;
 import tc.graphics.Fonts;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
 
 public class StateTitle extends State
 {
+	// Saved campaign data
+	private boolean dataExists;
+	private int dataCount;
+	private String[] dataFile;
 	
 	public StateTitle()
 	{
+		initFiles();
 		initNexus();
+	}
+	
+	public void initFiles()
+	{
+		// Load the main data file
+		String[] data = null;
+		FileRead reader = new FileRead("main");
+		try{data = reader.read();}
+		catch (IOException e){e.printStackTrace();}
+
+		// Check to see if there are any saved campaigns
+		if(Integer.parseInt(data[0])==0){dataExists = false;}
+		else if(Integer.parseInt(data[0])>0)
+		{
+			dataExists = true;
+		}
+		else{System.out.println(data[0]);}
 	}
 	
 	public void initNexus()
@@ -38,19 +62,28 @@ public class StateTitle extends State
 	
 	public void renderOptions(Graphics g)
 	{
-		g.setColor(Color.RED);
-		
 		// New Game
+		g.setColor(Color.RED);
 		if(Game.mouse.nexusCheckRef()=="ButtonNew"){g.setFont(Fonts.fontStandardBold);}
 		else{g.setFont(Fonts.fontStandard);}
 		g.drawString("New Story", 805, 450);
 		
 		// Continue
-		if(Game.mouse.nexusCheckRef()=="ButtonLoad"){g.setFont(Fonts.fontStandardBold);}
-		else{g.setFont(Fonts.fontStandard);}
+		g.setColor(Color.RED);
+		if(dataExists==true)
+		{
+			if(Game.mouse.nexusCheckRef()=="ButtonLoad"){g.setFont(Fonts.fontStandardBold);}
+			else{g.setFont(Fonts.fontStandard);}
+		}
+		else
+		{
+			g.setFont(Fonts.fontStandard);
+			g.setColor(Color.GRAY);
+		}
 		g.drawString("Continue", 805, 510);
 		
 		// Quit
+		g.setColor(Color.RED);
 		if(Game.mouse.nexusCheckRef()=="ButtonQuit"){g.setFont(Fonts.fontStandardBold);}
 		else{g.setFont(Fonts.fontStandard);}
 		g.drawString("Quit Game", 810, 570);
@@ -78,7 +111,14 @@ public class StateTitle extends State
 			if(ref=="ButtonLoad")
 			{
 				Game.mouse.mouseActionDone();
-				// Note: Create a file load screen
+				if(dataExists==true)
+				{
+					// Note: Create a file load screen
+				}
+				else
+				{
+					// Note: Create an alert for no campaign data
+				}
 			}
 			if(ref=="ButtonQuit")
 			{
