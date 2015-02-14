@@ -1,4 +1,5 @@
 package tc;
+import tc.audio.AudioManager;
 import tc.campaign.Campaign;
 import tc.graphics.Fonts;
 import tc.input.Mouse;
@@ -10,11 +11,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-
 import javax.swing.JFrame;
 
 public class Game extends JFrame implements Runnable
 {
+	// Audio
+	public static AudioManager audio;
+	
 	// Campaign
 	public static Campaign campaign;
 
@@ -51,8 +54,14 @@ public class Game extends JFrame implements Runnable
 	public void init()
 	{
 		initGame();
+		initAudio();
 		initStates();
 		Fonts.init();
+	}
+	
+	public void initAudio()
+	{
+		audio = new AudioManager();
 	}
 	
 	public void initGame()

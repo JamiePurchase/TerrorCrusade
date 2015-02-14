@@ -2,6 +2,10 @@ package tc.scenario;
 
 public class Scenario
 {
+	// Army Details
+	public int armyCount;
+	public ScenarioArmy[] armyObject = new ScenarioArmy[10];
+	
 	// Node Details
 	public int nodeCount;
 	public ScenarioNode[] nodeObject = new ScenarioNode[33];

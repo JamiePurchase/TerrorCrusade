@@ -105,8 +105,9 @@ public class StateTitle extends State
 			if(ref=="ButtonNew")
 			{
 				Game.mouse.mouseActionDone();
-				Game.campaignNew();
-				Game.setStateChange(new StateCampaign());
+				// Note: Use an object full of information to load the correct cinematic
+				//Game.cinematicNew();
+				Game.setStateChange(new StateCinematic());
 			}
 			if(ref=="ButtonLoad")
 			{

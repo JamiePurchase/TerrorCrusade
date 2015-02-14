@@ -8,7 +8,6 @@ public class Campaign
 {
 	// Campaign Details
 	public String campaignFile;
-	public String campaignPlayer;
 	
 	// Scenario Details
 	public Scenario scenario = new Scenario();
